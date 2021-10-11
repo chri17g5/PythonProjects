@@ -21,7 +21,7 @@ for x in range(len(currentWordSplit)):
 
 print(censoredWord)
 
-health = int(5)
+health = int(6)
 
 while True:
     userinput = input()
