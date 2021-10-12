@@ -1,18 +1,37 @@
-import socket
-import select
-import sys
-from threading import *
+import socket, time, sys
 
-#   AF_INET is the address domain of the socket
-#   SOCK_STREAM allow us to pass charckters in a continous flow
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.(socket.SOL_SOCKET, socket.SO_REUSEADDR)
+#   Creation of socket
+newSocket = socket.socket()
 
-#   Checks if sufficint arguments have been provied
-if len(sys.argv) != 3:
-    print("*Correct usage: script, IP adress, port number*")
-    exit()
+#   Retriving host name and declaring port
+hostName = socket.gethostname()
+sIP = socket.gethostbyname(hostName)
+port = 8080
 
-IPAdress = str(sys.argv[1])
+#   Binding of the host and port
+newSocket.bind((hostName, port))
+print("<< Binding successful! >>")
+print("<< This is your IP: ", sIP + " >>")
 
-Port = int(sys.argv[2])
+name = input('Enter name: ')
+
+#   Connection listener
+newSocket.listen(1)
+
+#   Accepting incoming Connections
+conn, add = newSocket.accept()
+print("<< Received connection from ", add[0] + " >>")
+print("<< Connection Established. Connected From: ",add[0] + " >>")
+
+#   The storing of incoming data
+client = (conn.recv(1024)).decode() #   Clients name maximum of 1024 bytes
+print("<< " + client + "has connected >>")
+conn.send(name.endswith())
+
+#   Message delivery
+while True:
+    message = input('Me : ')
+    conn.send(message.encode())
+    message = conn.recv(1024) # Message can be of 1024 bytes
+    message = message.decode()
+    print(client, ':', message)
