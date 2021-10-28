@@ -1,4 +1,9 @@
 import socket, time, sys
+"""
+    NOTES:
+        Create better UI Key features are missing
+"""
+
 
 #   Creation of socket
 newSocket = socket.socket()
